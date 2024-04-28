@@ -1,0 +1,34 @@
+{% extends "template.html.twig" %}
+
+
+
+{% block body %}
+
+    {{ include('Fragments/date-jour.html.twig') }}
+    <div class="alert alert-warning">
+        <a href="{{ path('app_tab',{nb:7}) }}">Stat Table</a>
+    </div>
+<table class="table">
+    <tr class="table-active">
+        <td>First Name</td>
+        <td>Name</td>
+        <td>Age</td>
+        <td>Message</td>
+    </tr>
+    {% for user in users %}
+    <tr class="table-{% if loop.index is odd %}danger{% else %}warning{% endif %}">
+        <td>{{ user.firstname }}</td>
+        <td>{{ user.lastname }}</td>
+        <td>{{ user.age }}</td>
+        <td>{{ render(controller('App\\Controller\\FirstController::sayHello',{firstname: user.firstname, name: user.lastname})) }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+{% block title %}
+    Users
+{% endblock %}
+
+{% block PageTitle %}
+    Users
+{% endblock %}

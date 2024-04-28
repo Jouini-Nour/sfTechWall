@@ -34,7 +34,7 @@ class FirstController extends AbstractController
             'language'=>$request->getLocale()
         ]);
     }
-    #[Route('/sayHello/{name}/{firstname}', name: 'say.hello')]
+    //#[Route('/sayHello/{name}/{firstname}', name: 'say.hello')]
     public function sayHello($name,$firstname): Response
     {
 
@@ -47,10 +47,10 @@ class FirstController extends AbstractController
     public function generatorCV(Request $request): Response
     {
 
-        if(!($request->request->get('nom'))){
+        if(!($request->query->get('nom'))){
             $nom = 'Jouini';
         }else{
-            $nom=$request->request->get('nom');
+            $nom=$request->query->get('nom');
         }
 
         return $this->render('first/cv.html.twig',[
@@ -58,7 +58,8 @@ class FirstController extends AbstractController
                 'nom'=>$nom ,
                 'prenom'=>'Nour',
                 'age'=>20,
-                'section'=>'GL'
+                'section'=>'GL',
+                'path' =>$request->query->get('path')
             ]
         );
     }
@@ -75,5 +76,12 @@ class FirstController extends AbstractController
     {
         $resultat=$entier1 *$entier2;
         return new Response("<h1>Le resultat de votre requete est : $resultat</h1>");
+    }
+    #[Route( '/template',
+        name: 'template'
+    )]
+    public function template():Response
+    {
+        return $this->render("template.html.twig");
     }
 }
